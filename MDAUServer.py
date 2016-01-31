@@ -1,6 +1,7 @@
 from litefb_app import app 
 import logging, setting
 from litefb_app.index import main
+from litefb_app.login import login
 from werkzeug.contrib.fixers import ProxyFix 
 
 app.secret_key = setting.yourkey

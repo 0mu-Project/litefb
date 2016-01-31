@@ -8,7 +8,7 @@
 
 # Server Setting
 host = '127.0.0.1'
-port = 8509
+port = 5000
 
 # Debug Mode , 0 = off , 1 = on
 debug = 1
@@ -22,3 +22,7 @@ sqliteFile = '../sqlite/litefb.db'
 ##
 yourkey = 'jdd978#whewl{@@jrejk__'
 imgurkey = '0c2b6130b066faf'
+FB_APP_ID=''
+FB_APP_SEC=''
+
+
