@@ -7,17 +7,18 @@ import facebook
 def login():
     code = request.args.get('code',False)
     if not code:
-        if not session['fbToken']:
+        try:
+            token = session['fbToken']
+            UID=facebook.getUID(session['fbToken'])
+            Name=facebook.getName(session['fbToken'])
+            home=facebook.getMeHome(session['fbToken'])
+            return "Already Login: "+Name+' , your FacebookID is '+UID+'. and your home look like:'+home
+
+        except:
             ## 登入第一階段：前往FB的登入連結
             LoginURL=facebook.genGetCodeURL(request.base_url)
             return '您尚未登入，<a href=\"'+LoginURL+'\">使用facebook登入</a>'
             
-        else:
-            ## 第三階段，拿Token亂玩
-            UID=facebook.getUID(session['fbToken'])
-            Name=facebook.getName(session['fbToken'])
-            return "Already Login: "+Name+' , your FacebookID is '+UID
-
     else:
         ## 第二階段：Facebook會把Code送回來，伺服器端要再利用Code取得Token
         Res=facebook.getToken(request.base_url,code)
