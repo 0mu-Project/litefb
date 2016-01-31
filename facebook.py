@@ -7,7 +7,7 @@ FB_BASE='https://www.facebook.com/dialog/oauth'
 FB_GRAPH_API='graph.facebook.com'
 
 ## Reference: https://developers.facebook.com/docs/facebook-login/permissions
-FB_SCOPE='public_profile'
+FB_SCOPE='public_profile user_posts'
 
 def genGetCodeURL(RedirectURL):
     return FB_BASE+'?client_id='+FB_APP_ID+\
@@ -62,5 +62,28 @@ def getName(Token):
         return data['name']
     
     except:
+        return False
+
+def getMeHome(Token):
+    conn = http.client.HTTPSConnection(FB_GRAPH_API)
+    request='/me/home?access_token='+Token
+    conn.request("GET", request)
+    resault = conn.getresponse()
+
+    if resault.status == 200:
+        return resault.read().decode("utf-8") 
+    else:
+        return False
+
+def getMeStatus(Token):
+    conn = http.client.HTTPSConnection(FB_GRAPH_API)
+    request='/v2.3/me/statuses?access_token='+Token
+    conn.request("GET", request)
+    resault = conn.getresponse()
+
+    if resault.status == 200:
+        return resault.read().decode("utf-8") 
+    else:
+        #return resault.read().decode("utf-8") 
         return False
 
