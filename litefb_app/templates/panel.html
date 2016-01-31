@@ -1,0 +1,33 @@
+		<br />
+		<form id="form" class="createtable">
+			<textarea id="markdown"class="content" name="content">---
+			</textarea> 
+			<hr />
+		<div class="row" style="position: relative;">
+			<div class="col-md-9">
+				<form name="imgurup" action="" method="POST" enctype="multipart/form-data"> 
+					<input class="file" name="fileToUpload" type="file" id="fileToUpload">
+				</form>
+			</div>
+			<div class="col-md-3">
+				<div class="btn-group pull-right" role="group" aria-label="Submit Option">
+					<button id="uploadfile" class="btn btn-success">	
+					<span class="glyphicon glyphicon-open" aria-hidden="true"></span>
+					點此上傳圖片</button>
+				</div>
+			</div>
+		</div>
+			<hr/>
+		</form>
+			<hr/>
+		<ul class="nav nav-tabs">
+			<li class="active"><a data-toggle="tab" href="#posts">動態時報</a></li>
+			<li><a data-toggle="tab" href="#posted">自己的貼文</a></li>
+		</ul>
+		<div class="tab-content">
+			<div id="posts" class="tab-pane fade in active">	
+			</div>
+			<div id="posted" class="tab-pane fade">	
+			</div>
+		</div>
+
