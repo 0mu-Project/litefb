@@ -12,121 +12,16 @@
 {% endblock %}
 {% block script %}
 <script>	
-	function showmdposted(url) {
-		$.ajax({
-			type : "POST",
-			url : "/md/listed/" + url ,
-			dataType: "text",
-			success: function(data) {
-				var title = url.split(".",1);
-				var titles = title.toString();
-				var titled = titles.substr(11);
-				simplemde.value(data);
-				$("#fc-inp").val(titled);
-			}
-		});
-	}
-</script>
-<script>	
-	function delposts(url) {
-		$.ajax({
-			type : "POST",
-			url : "/md/del/posts/" + url ,
-			dataType: "text",
-			success: function(data) {
-				alert("文章已刪除");
-			}
-		});
-	}
-</script>
-<script>
-	function showmd(url) {
-		$.ajax({
-			type : "POST",
-			url : "/md/list/" + url ,
-			dataType: "text",
-			success: function(data) {
-				var title = url.split(".",1);
-				var titles = title.toString();
-				var titled = titles.substr(11);
-				simplemde.value(data);
-				$("#fc-inp").val(titled);
-			}
-		});
-	}
-</script>
-<script>
 	$(document).ready(function(){
-		$.getJSON("/edit/posts" , function ( data ) {
-			console.log( data );
-			var number =1;
-			$.each(data, function (index, value){
-				console.log(value);
-				var val = "'" + value + "'";
-				var myRow = '<tr><td>'+number + '</td><td><a href="javascript:showmd('+ val + ')"> '+ value +'</a></td><td><button type="button" class="btn btn-danger" onclick="javascript:delposts('+ val + ')"> 刪除文章</button></td></tr>';
-			 	number = number +1;
-				$("#marktitle tr:last").after(myRow); 
-			})
-	  	});
-		$.getJSON("/edit/posted" , function ( data ) {
-			console.log( data );
-			var number =1;
-			$.each(data, function (index, value){
-				console.log(value);
-				var val = "'" + value + "'";
-				var urlto = "'/del/posted/"+ value + "'";
-				var myRow = '<tr><td>'+number + '</td><td><a href="javascript:showmdposted('+ val + ')"> '+ value +'</a></td><td><button type="button" class="btn btn-danger" onclick="javascript:location.href='+ urlto +' ">刪除文章</button></td></tr>';
-				number = number +1;
-			  	$("#markedtitle tr:last").after(myRow); 
-		  	})
-  		});	
-	});
-</script>	  
-<script>
-$("#fileToUpload").fileinput({'showUpload':false, 'previewFileType':'any'});
-$(function() {
-	$("button#uploadfile").click(function(){
-		$.ajaxFileUpload({
-            url:'/upload/imgur', 
-            secureuri:false,
-            fileElementId:'fileToUpload',
-            dataType: 'text',
-			success: function (data) { alert(data);},
-			error: function() { alert("imgur炸了或是你的圖片炸了"); }
-        });
-	});
-});
-</script>
-<script>
-	$(function() {
-		$("button#save").click(function(){
-				$.ajax({
-		 			type: "POST",
-		 			url: "/md/save",
-					data: $('#form').serialize(),
-					datatype: "text",
-					success: function( data ){ 
-						alert(data);},
-					error: function(){ alert("503 error");} 
-			});
-			
+		$.ajax({
+			type : "POST",
+			url : "/",
+			dataType: "text",
+			success: function(data) {
+			$("#posts").append(data);
+			}
 		});
-	});
-</script>
-<script>
-	$(function() {
-		$("button#submit").click(function(){
-		   	$.ajax({
-		 		type: "POST",
-				url: "/md/submit",
-				datatype: "text",
-		 		data: $('#form').serialize(),
-				success: function(data){ 
-					alert(data);},
-				error: function(){ alert("503 error");} 
-			});
-		});
-	});
+	})
 </script>
 <script>
 var simplemde = new SimpleMDE({ autoDownloadFontAwesome:true, spellChecker:false, toolbar:false,element: document.getElementById("markdown") });
